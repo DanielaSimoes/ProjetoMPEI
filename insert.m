@@ -1,6 +1,6 @@
 function [X] = insert(X, str, K)
   
-  N = length(X)
+    N = length(X)
   
     for i=1:K
       str = [str num2str(i)]
