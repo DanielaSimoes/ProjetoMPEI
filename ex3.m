@@ -1,23 +1,32 @@
-N = 10;
-BloomFilter = initialize(80);
-k = 3;
+N = 5;
+BloomFilter = initialize(8);
+k = 15;
 
 str = cell(1,N);
 
 for i=1:N
   str{1,i} = hashstring(40);
-   insert(BloomFilter, str{1,i}, k);
+  
 end
 
-counter = 0
+counter = 0;
 for i=1:N
+  X = insert(BloomFilter, str{1,i}, k, str);
   str2 = hashstring(40);
-  tmp = isMember(BloomFilter, str2, k);
+  tmp = isMember(X, str2, k);
   if (tmp==1 & ~strFinder(str, str2))
-    counter = counter + 1;
+    counter = counter + 1
+    
   end
 end
 
+fprintf('Numero de falsos positivos: %d' , counter)
 
 
-fprintf('Numero de falsos positivos: ', counter)
+falsePositivesGraph(k);
+
+array = []; 
+for i = 1:k
+end
+
+
