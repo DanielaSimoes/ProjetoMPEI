@@ -1,9 +1,8 @@
 function [X] = insert(X, str, K, arr)
-  
+
     N = length(X);
     array = [];
     counter = 0;
-    
     for i=1:K
       str = [str num2str(i)];
       index = hashfunction(str, N);

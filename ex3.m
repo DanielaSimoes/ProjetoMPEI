@@ -1,12 +1,13 @@
+
 N = 5;
 BloomFilter = initialize(8);
 k = 15;
+
 
 str = cell(1,N);
 
 for i=1:N
   str{1,i} = hashstring(40);
-  
 end
 
 counter = 0;
@@ -30,3 +31,5 @@ for i = 1:k
 end
 
 
+
+fprintf('Numero de falsos positivos: %d', counter)
