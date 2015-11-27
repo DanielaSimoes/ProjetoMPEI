@@ -10,9 +10,9 @@ function [X] = insert(X, str, K, arr)
       tmp = isMember(X, str, K);
       if (tmp==1 & ~strFinder(cellstr(arr), str))
          counter = counter + 1;
-    
       end
-      array = [array, counter];
+      
+      array = [array, counter]
     end
     
 end
