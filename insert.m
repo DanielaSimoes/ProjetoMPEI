@@ -12,7 +12,7 @@ function [X] = insert(X, str, K, arr)
          counter = counter + 1;
       end
       
-      array = [array, counter]
+      array = [array, counter];
     end
     
 end
