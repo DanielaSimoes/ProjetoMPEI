@@ -10,7 +10,7 @@ for i=1:N
 end
 
 counter = 0;
-for i=1:N
+for i=1:N                                           %PARA CALCULAR TOTAL DE FALSOS POSITIVOS
   X = insert(BloomFilter, str{1,i}, k);
   str2 = hashstring(40);
   tmp = isMember(X, str2, k);
@@ -19,7 +19,7 @@ for i=1:N
   end
 end
 
-array = []
+array = zeros(1,15)                                 %PARA CALCULAR TOTAL DE FALSOS POSITIVOS K A K
 for k=1:15
   for i=1:N
     X = insert(BloomFilter, str{1,i}, k);
@@ -29,12 +29,11 @@ for k=1:15
     end
   end
   
-
-  array = [array, counter/N];
+  array(k)=counter/N
 
 end
 
-fprintf('Numero de falsos positivos: %d' , counter)
+fprintf('Numero de falsos positivos: %d\n' , counter)
 
 falsePositivesGraph(k);
 subplot(1,2,2)
