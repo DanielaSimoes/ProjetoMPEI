@@ -1,5 +1,5 @@
-N = 1000;
-BloomFilter = initialize(8000);
+N = 100;
+BloomFilter = initialize(800);
 k = 15;
 
 
@@ -23,13 +23,13 @@ array = []
 for k=1:15
   for i=1:N
     X = insert(BloomFilter, str{1,i}, k, str);
-    str2 = hashstring(40);
     tmp = isMember(X, str2, k);
     if (tmp==1 & ~strFinder(str, str2))
       counter = counter + 1;
     end
   end
-  array = [array, counter];
+  array = [array, counter/N];
+  counter = 0;
 end
 
 fprintf('Numero de falsos positivos: %d' , counter)
