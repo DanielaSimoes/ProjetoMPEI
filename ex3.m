@@ -22,18 +22,16 @@ end
 array = []
 for k=1:15
   for i=1:N
-    X = insert(BloomFilter, str{1,i}, k, str);
->>>>>>> origin/master
+    X = insert(BloomFilter, str{1,i}, k);
     tmp = isMember(X, str2, k);
     if (tmp==1 & ~strFinder(str, str2))
       counter = counter + 1;
     end
   end
-  array(k) = counter;
+  
 
   array = [array, counter/N];
-  counter = 0;
->>>>>>> origin/master
+
 end
 
 fprintf('Numero de falsos positivos: %d' , counter)
