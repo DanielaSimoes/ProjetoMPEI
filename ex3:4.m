@@ -1,4 +1,4 @@
-N = 100;
+N = 1000;
 
 str = cell(N);
 
@@ -12,7 +12,7 @@ counter=0;
 array = [];
 for k=1:15
   % 1 vector para cada k
-  BloomFilter = initialize(800);
+  BloomFilter = initialize(8000);
   for i=1:N
     BloomFilter = insert(BloomFilter, str{i}, k);
   endfor
