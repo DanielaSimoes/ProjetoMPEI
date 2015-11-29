@@ -1,40 +1,40 @@
-N = 10;
-BloomFilter = initialize(80);
-k = 15;
+N = 100;
 
-
-str = cell(1,N);
+str = cell(N);
 
 for i=1:N
-  str{1,i} = hashstring(40);
+  str{i} = hashstring(40);
 end
 
-counter = 0;
-for i=1:N                                           %PARA CALCULAR TOTAL DE FALSOS POSITIVOS
-  X = insert(BloomFilter, str{1,i}, k);
-  str2 = hashstring(40);
-  tmp = isMember(X, str2, k);
-  if (tmp==1 & ~strFinder(str, str2))
-    counter = counter + 1;
-  end
-end
 
-array = zeros(1,15)                                 %PARA CALCULAR TOTAL DE FALSOS POSITIVOS K A K
+
+counter=0;
+array = [];
 for k=1:15
+  % 1 vector para cada k
+  BloomFilter = initialize(800);
   for i=1:N
-    X = insert(BloomFilter, str{1,i}, k);
-    tmp = isMember(X, str2, k);
-    if (tmp==1 & ~strFinder(str, str2))
+    BloomFilter = insert(BloomFilter, str{i}, k);
+  endfor
+  % avaliacao de falsos positivos
+  for i=1:N
+    str2 = hashstring(40);
+    tmp = isMember(BloomFilter, str2, k)
+    if (tmp==1 && ~strFinder(str, str2))
       counter = counter + 1;
     end
   end
-  
-  array(k)=counter/N
-
+  array = [array, counter/N];
+  counter = 0;
 end
 
-fprintf('Numero de falsos positivos: %d\n' , counter)
+% para aparecer no mesmo grafico
+array1=[];
+ for i = 1:15
+    array1 = [array1, (1 - exp((-1/8)*i))^i];
+ end 
+plot(array1,'g'); hold on;plot(array,'r')
 
-falsePositivesGraph(k);
-subplot(1,2,2)
-plot(1:15, array)
+%falsePositivesGraph(k);
+%subplot(1,2,2)
+%plot( array)
