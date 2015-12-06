@@ -52,4 +52,4 @@ toc
 
 SimilarUsers
 
-jaccardDistanceMinHash(Nu, 1000, Set, users)
+jaccardDistanceMinHash(Nu, 1000, Set, users);
