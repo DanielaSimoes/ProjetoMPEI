@@ -1,4 +1,4 @@
-function J = jaccardDistance(Nu) 
+function J = jaccardDistance(Nu, Set) 
 
 J=zeros(Nu,1); 
 h= waitbar(0,'Calculating');

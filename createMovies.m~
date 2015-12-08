@@ -1,4 +1,4 @@
-function [Nu,Set,users] = createMovies(nomeFicheiro)
+function Nu = createMovies(nomeFicheiro)
 
 udata=load(nomeFicheiro);  % Carrega o ficheiro dos dados dos filmes
 % Fica apenas com as duas primeiras colunas

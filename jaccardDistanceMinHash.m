@@ -1,37 +1,45 @@
-function SimilarUsers = jaccardDistanceMinHash(Nu, k, sett, users)
+function SimilarUsers = jaccardDistanceMinHash(Nu, k, Set, users)
 
-    h= waitbar(0,'Calculating');
-    minvector = zeros(Nu,2);
-    for n1= 1:Nu
-        waitbar(n1/Nu,h);
-        min = 900; 
-        for i = 1:k,
-            tmp1 = hashfunction(sett{n1}, Nu);
-            if (tmp1 < min) 
+coefA = coef_a_b(k);
+coefB = coef_a_b(k);
+
+c = 1693;
+
+minvectors = zeros(Nu,k);
+h = waitbar(0,'Calculating');
+
+for i = 1:Nu
+    waitbar(i/Nu,h);
+    minvector = zeros(1,k);
+    for k = 1:100
+    min = 2000;
+        for j = 1:length(Set{i})
+            tmp1 = mod(coefA(k) * Set{i}(j) + coefB(k),c);
+            if tmp1 < min
                 min = tmp1;
             end
         end
-        minvector(n1,:)=[users(n1) min];
+    minvector(1,k) = min;
     end
-    delete (h)
-    
-    p=1;
-    array = zeros(length(users), length(users));
-    SimilarUsers = zeros(Nu, 3);
-    sizeV = size(minvector)
-    for j = 1:sizeV(1),
-       for k = j+1:sizeV(1),
-          if(minvector(j,2)==minvector(k,2))
-              if(array(users(j,1),users(k,1)) == 0 || array(users(j,1),users(k,1)) == 0 )
-                SimilarUsers(p,:) = [users(j,1) users(k,1) minCounter(minvector(j,2),minvector)/length(minvector)];
-                p = p+1; 
-                array(users(j,1),users(k,1)) = 1;
-                array(users(k,1),users(j,1)) = 1;
-              end
-          end
-       end
+    delete(h)
+    minvectors(i,:) = minvector;
+end
+
+JDist=zeros(Nu);
+for n1 = 1:Nu % Get the MinHash signature for document i.
+  tmp2 = minvectors(n1,:);  
+  for n2= n1+1:Nu %For each of the other test documents...
+    tmp3 = minvectors(n2,:); % Get the MinHash signature for document j
+    count = 0; %Count the number of positions in the minhash signature which are equal
+    for k = 1:100
+      count = count + (tmp2(k) == tmp3(k)); % Record the percentage of positions which matched.    
     end
-    p
+     JDist(n1,n2) = 1-(count / k);
+  end
+end
+
+threshold =0.4;  % limiar de decisao
+% Array para guardar pares similares (user1, user2, distancia)
+similarItens(Nu,JDist,threshold,users);
+
 end 
-
-
