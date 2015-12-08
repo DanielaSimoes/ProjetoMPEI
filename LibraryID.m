@@ -30,7 +30,7 @@ for i=1:length(books)
   X = insert(X, books{i}, 15);
 end
 
-member = isMember(X,s, 15);
+member = isMember(X, s, 15);
 
 if(member==1)
     fprintf('O seu livro existe!');
@@ -48,24 +48,34 @@ for n1= 1:Nu,
     end
 end
 delete (h)
-save('distance.mat', 'J')
+%save('distance.mat', 'J')
 toc
 
 tic
-threshold=0.4; %limiardedecis Ìƒao
-% Array para guardar pares similares (user1, user2, distË†ancia) 
+threshold=0.4; %limiar de decisao
+% Array para guardar pares similares (user1, user2, distancia) 
 SimilarUsers= zeros(1,3);
+SimilarBooks= zeros(1,1);
+
 k= 1;
+t=1;
 for n1= 1:Nu,
     for n2= n1+1:Nu,
         if (J(n1,n2) < threshold)
           SimilarUsers(k,:)= [users(n1) users(n2) J(n1,n2)];
           k= k+1; 
+          %if books{n1}==s
+          %    SimilarBooks(t,:) = books{n1};
+          %    t = t + 1;
+          %end
+          %talvez não faça sentido porque só se obtem os iguais
         end   
     end
 end
 toc
-
+fprintf('Users similares: ');
 SimilarUsers
 
+
+fprintf('Livros similares pelo MinHash: ');
 jaccardDistanceMinHash(Nu, 1000, Set, users);
