@@ -10,12 +10,11 @@ m=1682;
 %c = 1693;
 %Create a list of 'k' random values.
 coef = zeros(1,k);
-
- 
-for i=k:-1:1
+  
+while k > 0
     %Get a random shingle ID.
     randcoef = floor(1 + rand()*m);
-    
+  
     %Ensure that each random number is unique.
     while isempty(find(coef==randcoef, 1))==0
       randcoef = floor(1 + rand()*m);
