@@ -2,17 +2,17 @@ fileID = fopen('books.data');
 C = textscan(fileID, '%s %d', 'Delimiter', ' ');
 
 fclose(fileID);
-t = cellstr(num2str(C{2}))
-u = cat(2, C{1}, t)
+t = cellstr(num2str(C{2}));
+u = cat(2, C{1}, t);
 
-users = C{2} % Extrai os IDs dos utilizadores
+users = C{2}; % Extrai os IDs dos utilizadores
 Nu= length(C{2}); % N de utilizadores
 
 Set= cell(Nu,1); 
 
 for n = 1:Nu, % Para cada utilizador
 % Obtem os livros de cada um
-    ind = find(int32(str2double(u(:,2))) == users(n))
+    ind = find(int32(str2double(u(:,2))) == users(n));
 % E guarda num array
     Set{n} = [Set{n} u(ind,2)];
 end
