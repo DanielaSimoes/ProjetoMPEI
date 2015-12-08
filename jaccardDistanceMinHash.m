@@ -44,9 +44,7 @@ for n1 = 1:Nu% Get the MinHash signature for document i.
   end
 end
 
-  end
-
-threshold =0.4;  % limiar de decisao
+threshold =0.4; % limiar de decisao
 % Array para guardar pares similares (user1, user2, distancia)
 SimilarUsersMinHash= zeros(1,3);
 k= 1;
@@ -58,6 +56,7 @@ for n1= 1:Nu,
     end
   end
 end
+
 SimilarUsersMinHash
 
 end 
