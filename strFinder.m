@@ -1,6 +1,7 @@
 function X = strFinder(Array, str)
-
-  result = strfind(cellstr(Array), str);
+   
+  c = cellstr(Array);
+  result = strfind(c, str);
   
   X = 1;
   
