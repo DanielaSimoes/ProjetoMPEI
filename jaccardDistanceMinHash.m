@@ -5,7 +5,7 @@ function SimilarUsersMinHash = jaccardDistanceMinHash(Nu, k, Set, users)
 
 prime = 1693;
 
-h = waitbar(0,'Calculating');            
+h = waitbar(0,'Calculating');
 TotalMins = zeros(Nu,k);
 for i = 1:Nu
     waitbar(i/Nu,h);
@@ -13,8 +13,12 @@ for i = 1:Nu
     for k = 1:1000
         min = 2000;
         for j = 1:length(Set{i})
+
             %hash_code = mod(mod(FirstRand(k)*Set{i}(j)+ SecondRand(k), prime), 1021);
             %hash_code = hashfunction(cell2mat(Set{i}(j)),3000);
+            hash_code = mod(mod(FirstRand(k)*Set{i}(j)+ SecondRand(k), prime), 1021);
+            %hash_code = hashfunction(num2str(Set{i}(j)), 3000);
+
             if hash_code < min
                 min = hash_code;
             end
@@ -24,6 +28,7 @@ for i = 1:Nu
     TotalMins(i,:) = minvector;
 end
 delete(h)
+
 JD=zeros(Nu);
 for n1 = 1:Nu
   mins1 = TotalMins(n1,:);

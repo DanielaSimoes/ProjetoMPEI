@@ -4,17 +4,38 @@ u= udata(1:end,1:2); clear udata;
 
 % Lista de utilizadores
 users = unique(u(:,1)); % Extrai os IDs dos utilizadores 
-Nu= length(users); % N ́umero de utilizadores
-
-% Constr ́oi a lista de filmes para cada utilizador 
-Set= cell(Nu,1); % Usa c ́elulas
+Nu= length(users); % Numero de utilizadores
+% Constroi a lista de filmes para cada utilizador 
+Set= cell(Nu,1); % Usa celulas
 
 for n = 1:Nu, % Para cada utilizador
 % Obt ́em os filmes de cada um
 ind = find(u(:,1) == users(n));
-% E guarda num array. Usa c ́elulas porque utilizador tem um n ́umero 
+% E guarda num array. Usa celulas porque utilizador tem um n ́umero 
 % diferente de filmes. Se fossem iguais podia ser um array
     Set{n} = [Set{n} u(ind,2)];
+end
+
+prompt = 'ID do livro? ';
+s = input(prompt)
+
+X = initialize(Nu*15);
+
+books = cell(Nu,1);
+for n = 1:Nu, 
+    books{n} = [books{n} u(n,2)];
+end
+
+for i=1:length(books)
+  X = insert(X, books{i}, 15);
+end
+
+member = isMember(X,s, 15);
+
+if(member==1)
+    fprintf('O seu livro existe!');
+else
+    fprintf('O seu livro n�o existe!');
 end
 
 tic
@@ -28,11 +49,7 @@ for n1= 1:Nu,
 end
 delete (h)
 save('distance.mat', 'J')
-
 toc
-
-%% Combasenadistˆancia,determinaparescom 
-% distˆanciainferioraumlimiarpr ́e-definido
 
 tic
 threshold=0.4; %limiardedecis ̃ao
