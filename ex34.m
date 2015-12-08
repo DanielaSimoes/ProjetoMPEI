@@ -1,12 +1,10 @@
 N = 1000;
 
-str = cell(N);
+str = cell(N,1);
 
 for i=1:N
   str{i} = hashstring(40);
 end
-
-
 
 counter=0;
 array = [];
@@ -15,11 +13,11 @@ for k=1:15
   BloomFilter = initialize(8000);
   for i=1:N
     BloomFilter = insert(BloomFilter, str{i}, k);
-  endfor
+  end
   % avaliacao de falsos positivos
   for i=1:N
     str2 = hashstring(40);
-    tmp = isMember(BloomFilter, str2, k)
+    tmp = isMember(BloomFilter, str2, k);
     if (tmp==1 && ~strFinder(str, str2))
       counter = counter + 1;
     end
@@ -37,4 +35,4 @@ plot(array1,'g'); hold on;plot(array,'r')
 
 %falsePositivesGraph(k);
 %subplot(1,2,2)
-%plot( array)
+%plot(array)

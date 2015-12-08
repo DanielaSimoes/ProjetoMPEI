@@ -5,14 +5,15 @@ function SimilarUsers = jaccardDistanceMinHash(Nu, k, Set, users)
 
 c = 1693;
 
+h = waitbar(0,'Calculating');
 Docs_signatures = zeros(Nu,k);
 for i = 1:Nu
+    waitbar(i/Nu,h);
     signature = zeros(1,k);
     for k = 1:100
         min = 2000;
         for j = 1:length(Set{i})
-            hash_code = mod(coefA(k) * Set{i}(j) + coefB(k),c); %HashFunction(num2str(Set{i}(j)),length(Set{i}));
-            
+            hash_code = hashfunction(num2str(Set{i}(j)),30000);
             if hash_code < min
                 min = hash_code;
             end
