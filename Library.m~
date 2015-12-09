@@ -1,9 +1,9 @@
 fileID = fopen('books.data');
-C = textscan(fileID, '%d %s', 'Delimiter', ' ');
+C = textscan(fileID, '%s %d', 'Delimiter', ' ');
 
 fclose(fileID);
-t = cellstr(num2str(C{1}));
-u = cat(2, t, C{2});
+t = (num2str(C{1}));
+u = cat(2, C{2}, t);
 
 users = C{1}; % Extrai os IDs dos utilizadores
 Nu= length(C{1}); % N de utilizadores
@@ -14,7 +14,7 @@ for n = 1:Nu, % Para cada utilizador
 % Obtem os livros de cada um
     ind = find(int32(str2double(u(:,1))) == users(n));
 % E guarda num array
-    Set{n} = [Set{n} u(ind,2)];
+    Set{n} = [Set{n} u(ind,1)];
 end
 
 tic
@@ -28,6 +28,7 @@ for n1= 1:Nu,
 end
 delete (h)
 
+%J(1,2)
 save('distance.mat', 'J')
 
 toc

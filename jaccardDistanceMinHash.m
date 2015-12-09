@@ -15,9 +15,7 @@ for i = 1:Nu
         for j = 1:length(Set{i})
 
             %hash_code = mod(mod(FirstRand(k)*Set{i}(j)+ SecondRand(k), prime), 1021);
-            %hash_code = hashfunction(cell2mat(Set{i}(j)),3000);
-            hash_code = mod(mod(FirstRand(k)*Set{i}(j)+ SecondRand(k), prime), 1021);
-            %hash_code = hashfunction(num2str(Set{i}(j)), 3000);
+            hash_code = hashfunction(cell2mat(Set{i}(j)),3000);
 
             if hash_code < min
                 min = hash_code;
