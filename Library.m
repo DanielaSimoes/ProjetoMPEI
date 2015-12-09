@@ -5,14 +5,14 @@ fclose(fileID);
 t = cellstr(num2str(C{1}));
 u = cat(2, t, C{2});
 
-users = C{1}; % Extrai os IDs dos utilizadores
-Nu= length(C{1}); % N de utilizadores
+users = unique(C{1}); % Extrai os IDs dos utilizadores
+Nu= length(users); % N de utilizadores
 
 Set= cell(Nu,1); 
 
 for n = 1:Nu, % Para cada utilizador
 % Obtem os livros de cada um
-    ind = find(int32(str2double(u(:,1))) == users(n));
+    ind = find((int32(str2double(u(:,1)))) == users(n));
 % E guarda num array
     Set{n} = [Set{n} u(ind,2)];
 end
@@ -28,7 +28,7 @@ for n1= 1:Nu,
 end
 delete (h)
 
-save('distance.mat', 'J')
+%save('distance.mat', 'J')
 
 toc
 
@@ -40,7 +40,7 @@ k= 1;
 for n1= 1:Nu,
     for n2= n1+1:Nu,
         if (J(n1,n2) < threshold)
-          SimilarUsers(k,:)= [users(n1) users(n2) J(n1,n2)];
+          SimilarUsers(k,:)= [double(users(n1)) double(users(n2)) J(n1,n2)];
           k= k+1; 
         end   
     end

@@ -5,8 +5,14 @@ function SimilarUsersMinHash = jaccardDistanceMinHash(Nu, k, Set, users)
 
 prime = 1693;
 
+
+Set{1}
+Set{1}(1)
+
+
 h = waitbar(0,'Calculating');
 TotalMins = zeros(Nu,k);
+
 for i = 1:Nu
     waitbar(i/Nu,h);
     minvector = zeros(1,k);
@@ -15,8 +21,9 @@ for i = 1:Nu
         for j = 1:length(Set{i})
 
             %hash_code = mod(mod(FirstRand(k)*Set{i}(j)+ SecondRand(k), prime), 1021);
-            hash_code = hashfunction(cell2mat(Set{i}(j)),3000);
-
+            hash_code = hashfunction(cell2mat(Set{i}(j)),30000);
+            %hash_code = hashWeb(strcat(char(Set{i}(j)),int2str(FirstRand(i))));
+            
             if hash_code < min
                 min = hash_code;
             end
@@ -41,6 +48,7 @@ for n1 = 1:Nu
      JD(n1,n2) = 1-(count / k);
   end
 end
+JD
 
 threshold =0.4; % limiar de decisao
 % Array para guardar pares similares (user1, user2, distancia)
