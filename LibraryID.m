@@ -78,4 +78,4 @@ SimilarUsers
 
 
 fprintf('Livros similares pelo MinHash: ');
-jaccardDistanceMinHash(Nu, 1000, Set, users);
+jaccardDistanceMinHashInt(Nu, 1000, Set, users);
