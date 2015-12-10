@@ -17,24 +17,19 @@ for n = 1:Nu, % Para cada utilizador
     Set{n} = [Set{n} u(ind,2)];
 end
 
-
 tic
 J=zeros(Nu,1);
 h = waitbar(0,'Calculating');
 for n1= 1:Nu,
     waitbar(n1/Nu,h);
     for n2= n1+1:Nu,
-        for n3 = 1:Nu,
-           for n4 = 1:Nu,
-            J(n1,n2) = 1 - (length(intersect(char(Set{n1}),char(Set{n2})))/length(union(char(Set{n1}),char(Set{n2}))));
-           end 
-        end
+        J(n1,n2) = 1 - (length(intersect(char(Set{n1}),char(Set{n2})))/length(union(char(Set{n1}),char(Set{n2}))));
     end
 end
 delete (h)
-
 %save('distance.mat', 'J')
 
+J
 toc
 
 tic
@@ -54,4 +49,4 @@ toc
 
 SimilarUsers
 
-%jaccardDistanceMinHash(Nu, 1000, Set, users);
+jaccardDistanceMinHash(Nu, 1000, Set, users);
