@@ -1,6 +1,6 @@
 function string=hashstring(N)
 
-a = ['0':'9' 'a':'z' 'A':'Z'];
+a = ['a':'z' 'A':'Z'];
 
 
 string = '';
