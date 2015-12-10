@@ -12,12 +12,11 @@ Set= cell(Nu,1);
 
 for n = 1:Nu, % Para cada utilizador
 % Obtem os livros de cada um
-    ind = find(int32(str2double(u(:,1))) == users(n));
+    ind = find((int32(str2double(u(:,1)))) == users(n));
 % E guarda num array
     Set{n} = [Set{n} u(ind,2)];
 end
 
-J(1,2)
 
 tic
 J=zeros(Nu,1);
@@ -34,7 +33,7 @@ for n1= 1:Nu,
 end
 delete (h)
 
-save('distance.mat', 'J')
+%save('distance.mat', 'J')
 
 toc
 

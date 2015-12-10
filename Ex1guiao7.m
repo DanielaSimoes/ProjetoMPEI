@@ -31,8 +31,6 @@ delete (h)
 save('distance.mat', 'J')
 toc
 
-%% Combasenadistˆancia,determinaparescom 
-% distˆanciainferioraumlimiarpr ́e-definido
 
 tic
 threshold=0.4; %limiardedecis ̃ao

@@ -2,7 +2,6 @@ X = initialize(15);
 
 Cidades = {'Aveiro';'Agueda'};
 
-
 for i=1:length(Cidades)
   X = insert(X, Cidades{i}, 3);
 end
