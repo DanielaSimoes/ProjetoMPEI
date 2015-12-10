@@ -29,7 +29,6 @@ end
 delete (h)
 %save('distance.mat', 'J')
 
-J
 toc
 
 tic
