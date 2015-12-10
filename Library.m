@@ -1,5 +1,5 @@
 fileID = fopen('books.data');
-C = textscan(fileID, '%d %s', 'Delimiter', ' ');
+C = textscan(fileID, '%d %s', 'Delimiter', '\t');
 
 fclose(fileID);
 t = cellstr(num2str(C{1}));
@@ -16,6 +16,8 @@ for n = 1:Nu, % Para cada utilizador
 % E guarda num array
     Set{n} = [Set{n} u(ind,2)];
 end
+
+Set{1}(1)
 
 tic
 J=zeros(Nu,1);

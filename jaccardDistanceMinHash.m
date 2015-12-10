@@ -5,11 +5,6 @@ function SimilarUsersMinHash = jaccardDistanceMinHash(Nu, k, Set, users)
 
 prime = 1693;
 
-
-Set{1}
-Set{1}(1)
-
-
 h = waitbar(0,'Calculating');
 TotalMins = zeros(Nu,k);
 
@@ -34,6 +29,7 @@ for i = 1:Nu
 end
 delete(h)
 
+
 JD=zeros(Nu);
 for n1 = 1:Nu
   mins1 = TotalMins(n1,:);
@@ -49,7 +45,6 @@ for n1 = 1:Nu
   end
 end
 JD
-
 threshold =0.4; % limiar de decisao
 % Array para guardar pares similares (user1, user2, distancia)
 SimilarUsersMinHash= zeros(1,3);
