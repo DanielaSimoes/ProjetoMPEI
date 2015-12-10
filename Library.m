@@ -28,8 +28,9 @@ for n1= 1:Nu,
 end
 delete (h)
 %save('distance.mat', 'J')
-
 toc
+
+J
 
 tic
 threshold=0.4; %limiar
@@ -45,6 +46,7 @@ for n1= 1:Nu,
     end
 end
 toc
+
 
 SimilarUsers
 

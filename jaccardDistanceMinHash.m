@@ -1,24 +1,23 @@
-function SimilarUsersMinHash = jaccardDistanceMinHashInt(Nu, k, Set, users)
-%funcao para calculo de MinHash com inteiros
+function SimilarUsersMinHash = jaccardDistanceMinHash(Nu, k, Set, users)
+%funcao para calculo de MinHash com strings
 h = waitbar(0,'Calculating');
-
-FirstRand = rand_array(k);
-SecondRand = rand_array(k);
-
 TotalMins = zeros(Nu,k);
+
+HF = HashFunctionR(1e6);
+
 for i = 1:Nu
     waitbar(i/Nu,h);
-    minvector = zeros(1,k);
-    for k = 1:1000
-        min = 20000000;
-        for j = 1:length(Set{i})
-            hash_code = mod(mod(FirstRand(k)*Set{i}(j)+ SecondRand(k),prime), 1021);
-            if hash_code < min
-                min = hash_code;
+    minvector = ones(1,k) * 999999999999;
+      for j = 1:length(Set{i})
+          str = Set{i}{j}
+          for k = 1:1000
+            str = [str num2str(k)];
+            hash_code = HF.HashCode(str);
+            if hash_code < minvector(k)
+                minvector(k) = hash_code;
             end
-        end
-        minvector(1,k) = min;
-    end
+          end
+      end
     TotalMins(i,:) = minvector;
 end
 delete(h)
@@ -39,6 +38,8 @@ for n1 = 1:Nu
   end
 end
 
+JD
+
 threshold =0.4; % limiar de decisao
 % Array para guardar pares similares (user1, user2, distancia)
 SimilarUsersMinHash= zeros(1,3);
@@ -53,5 +54,4 @@ for n1= 1:Nu,
 end
 SimilarUsersMinHash
 end 
-
 
