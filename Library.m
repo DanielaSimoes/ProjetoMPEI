@@ -1,12 +1,12 @@
 fileID = fopen('books.data');
-C = textscan(fileID, '%d %s', 'Delimiter', ' ');
+C = textscan(fileID, '%d %s', 'Delimiter', '\t');
 
 fclose(fileID);
 t = cellstr(num2str(C{1}));
-u = cat(2, t, C{2});
+u = cat(2, t, C{2}); %concatenar users e livros
 
-users = C{1}; % Extrai os IDs dos utilizadores
-Nu= length(C{1}); % N de utilizadores
+users = unique(C{1}); % Extrai os IDs dos utilizadores
+Nu= length(users); % N de utilizadores
 
 Set= cell(Nu,1); 
 
@@ -17,13 +17,19 @@ for n = 1:Nu, % Para cada utilizador
     Set{n} = [Set{n} u(ind,2)];
 end
 
+J(1,2)
+
 tic
 J=zeros(Nu,1);
 h = waitbar(0,'Calculating');
 for n1= 1:Nu,
     waitbar(n1/Nu,h);
     for n2= n1+1:Nu,
-      J(n1,n2) = 1 - (length(intersect(Set{n1},Set{n2}))/length(union(Set{n1},Set{n2})));
+        for n3 = 1:Nu,
+           for n4 = 1:Nu,
+            J(n1,n2) = 1 - (length(intersect(char(Set{n1}),char(Set{n2})))/length(union(char(Set{n1}),char(Set{n2}))));
+           end 
+        end
     end
 end
 delete (h)
@@ -35,12 +41,12 @@ toc
 tic
 threshold=0.4; %limiar
 % Array para guardar pares similares (user1, user2, distancia) 
-SimilarUsers= zeros(1,3);
+SimilarUsers=zeros(1,3);
 k= 1;
 for n1= 1:Nu,
     for n2= n1+1:Nu,
         if (J(n1,n2) < threshold)
-          SimilarUsers(k,:)= [users(n1) users(n2) J(n1,n2)];
+          SimilarUsers(k,:)= [double(users(n1)) double(users(n2)) J(n1,n2)];
           k= k+1; 
         end   
     end
@@ -49,4 +55,4 @@ toc
 
 SimilarUsers
 
-jaccardDistanceMinHash(Nu, 1000, Set, users);
+%jaccardDistanceMinHash(Nu, 1000, Set, users);

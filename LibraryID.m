@@ -48,6 +48,7 @@ for n1= 1:Nu,
     end
 end
 delete (h)
+J(1,2)
 %save('distance.mat', 'J')
 toc
 
