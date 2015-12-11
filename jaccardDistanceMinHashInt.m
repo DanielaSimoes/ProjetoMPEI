@@ -5,6 +5,8 @@ h = waitbar(0,'Calculating');
 FirstRand = rand_array(k);
 SecondRand = rand_array(k);
 
+prime = 1693;
+
 TotalMins = zeros(Nu,k);
 for i = 1:Nu
     waitbar(i/Nu,h);

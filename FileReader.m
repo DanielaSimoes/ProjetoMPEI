@@ -1,10 +1,20 @@
-fileID = fopen('test1.txt');
-text1 = textscan(fileID, '%s', 'Delimiter', ' ');
-fclose(fileID);
+list = dir('*.txt');
 
-fileID = fopen('test2.txt');
-text2 = textscan(fileID, '%s', 'Delimiter', ' ');
-fclose(fileID);
+for i=1:length(list)
+    list(i).name
+    fileID = fopen(list(i).name);
+    text = textscan(fileID, '%s', 'Delimiter', ' ');
+    fclose(fileID);
+end
+
+% fileID = fopen('test1.txt');
+% text1 = textscan(fileID, '%s', 'Delimiter', ' ');
+% fclose(fileID);
+% 
+% fileID = fopen('test2.txt');
+% text2 = textscan(fileID, '%s', 'Delimiter', ' ');
+% fclose(fileID);
+
 X = initialize(1e6);
 
 for n1 = 1:length(text2{1})
