@@ -50,7 +50,9 @@ SimilarUsers
 
 [SimilarUsersMinHash, JD] = jaccardDistanceMinHashInt(Nu, 1000, Set, users);
 
+JD
+
 %Gráfico de erro
 erro= (J-JD);
 erro1 = erro(erro~=0);
-hist(erro1)
+hist(erro1, length(erro1))

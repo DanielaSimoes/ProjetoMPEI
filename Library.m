@@ -92,5 +92,5 @@ SimilarUsers
 %Gráfico do erro
 erro= (J-JD);
 erro1 = erro(erro~=0);
-plot(erro1)
+hist(erro1, length(erro1))
 

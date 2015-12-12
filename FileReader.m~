@@ -1,7 +1,6 @@
-%function [] = FileReader(FileName)
+function [] = FileReader(FileName)
     list = dir('*.txt');
     listing = cell(length(list)-1,1);
-    FileName = 'Livro 1.txt';
 
     index = 1;
     for k=1:length(listing)+1
@@ -18,22 +17,15 @@
         text{i} = textscan(fileID, '%s', 'Delimiter', ' ');
         fclose(fileID);
     end
-    
-    n = 0;
+
     % n - number of items to add
-    for n1 = 1:length(text)
-        for n2 = 1:length(text{n1})
-            for n3 = 1:length(text{n1}{n2})
-                n = n + 1;
-            end
-        end
-    end
-  
-    p = 1e-6;
-    m = ceil((n * log(p)) / log(1.0 / 2^log(2.0)));
+    for i = 1:length(text)
+        
+    
+    m = ceil((n * log(p)) / log(1.0 / (pow(2.0, log(2.0)))));
     x = round(log(2.0) * m / n);
     
-    X = initialize(1e6);
+    X = initialize(x);
     
     fileID = fopen(FileName);
     userBook = textscan(fileID, '%s', 'Delimiter', ' ');
@@ -47,10 +39,10 @@
         waitbar(n1/length(text),h);
         for n2 = 1:length(text{n1})
             for n3=1:length(text{n1}{n2})
-                X = insert(X, char(text{n1}{n2}{n3}),x);
+                X = insert(X, char(text{n1}{n2}{n3}),1000);
             end
             for n4 = 1:length(userBook{1})
-                if isMember(X,char(userBook{1}(n4)),x);
+                if isMember(X,char(userBook{1}(n4)),1000);
                     counter = counter + 1;
                 end
             end
@@ -71,4 +63,4 @@
     
    
     
-%end
+end
