@@ -87,7 +87,7 @@ end
 toc
 
 SimilarUsers
-[Similar, JD] = jaccardDistanceMinHash(Nu, 1000, Set, users);
+[SimilarUsersMinHash, JD] = jaccardDistanceMinHash(Nu, 3000, Set, users);
 
 %Gráfico do erro
 erro= (J-JD);

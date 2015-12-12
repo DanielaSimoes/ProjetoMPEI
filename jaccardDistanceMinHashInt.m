@@ -1,4 +1,4 @@
-function SimilarUsersMinHash = jaccardDistanceMinHashInt(Nu, k, Set, users)
+function [SimilarUsersMinHash, JD] = jaccardDistanceMinHashInt(Nu, k, Set, users)
 %funcao para calculo de MinHash com inteiros
 h = waitbar(0,'Calculating');
 
