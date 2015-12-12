@@ -1,43 +1,45 @@
 list = dir('*.txt');
 listing = cell(length(list)-1,1);
 
+prompt = 'Qual o seu ID de utilizador? ';
+ID = input(prompt);
+
+prompt = 'Qual o título do livro a requisitar? ';
+livro = input(prompt);
+livro = [livro '.txt'];
+
 index = 1;
 for k=1:length(listing)+1
-    if strcmp(list(k).name,FileName) == 0
+    if strcmp(list(k).name,livro) == 0
         listing{index} = list(k).name;
     	index = index + 1;
     end
 end
-    
-prompt = 'Qual o seu ID de utilizador? ';
-ID = input(prompt);
-
-prompt = 'Qual o tï¿½tulo do livro a requisitar? ';
-livro = input(prompt);
-livro = [livro '.txt'];
 
 X = initialize(1e6);
 
-for i=1:length(listing)
-  X = insert(X, listing{i}, 15);
+for i=1:length(list)
+    X = insert(X, list(i).name, 15);
 end
+
 
 member = isMember(X, livro, 15);
 
+
 if(member==1)
     fprintf('O seu livro possivelmente existe!\n');
-    
+
     fileID = fopen('books.data', 'a');
     fprintf(fileID,'%d \t %s\n',ID, livro);
     fclose(fileID);
     
-    fprintf('Outras sugestï¿½es: ')
-    FileReader(livro);
-    
+    fprintf('Outras sugestões: ')
+    %FileReader(livro);
 else
-    fprintf('O seu livro nï¿½o existe!');
+    fprintf('O seu livro não existe!');
 end
  
+fileID = fopen('books.data');
 C = textscan(fileID, '%d %s', 'Delimiter', '\t');
 
 fclose(fileID);
@@ -84,7 +86,11 @@ for n1= 1:Nu,
 end
 toc
 
-
 SimilarUsers
+[Similar, JD] = jaccardDistanceMinHash(Nu, 1000, Set, users);
 
-jaccardDistanceMinHash(Nu, 1000, Set, users);
+%Gráfico do erro
+erro= (J-JD);
+erro1 = erro(erro~=0)
+plot(erro1)
+
