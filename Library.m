@@ -12,7 +12,7 @@ end
 prompt = 'Qual o seu ID de utilizador? ';
 ID = input(prompt);
 
-prompt = 'Qual o título do livro a requisitar? ';
+prompt = 'Qual o tï¿½tulo do livro a requisitar? ';
 livro = input(prompt);
 livro = [livro '.txt'];
 
@@ -31,11 +31,11 @@ if(member==1)
     fprintf(fileID,'%d \t %s\n',ID, livro);
     fclose(fileID);
     
-    fprintf('Outras sugestões: ')
+    fprintf('Outras sugestï¿½es: ')
     FileReader(livro);
     
 else
-    fprintf('O seu livro não existe!');
+    fprintf('O seu livro nï¿½o existe!');
 end
  
 C = textscan(fileID, '%d %s', 'Delimiter', '\t');
@@ -83,6 +83,7 @@ for n1= 1:Nu,
     end
 end
 toc
+
 
 SimilarUsers
 

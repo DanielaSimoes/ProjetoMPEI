@@ -9,7 +9,7 @@ for i = 1:Nu
     waitbar(i/Nu,h);
     minvector = ones(1,k) * 999999999999;
       for j = 1:length(Set{i})
-          str = Set{i}{j}
+          str = Set{i}{j};
           for k = 1:1000
             str = [str num2str(k)];
             hash_code = HF.HashCode(str);
