@@ -86,12 +86,13 @@
         end
       end
       % avaliacao de falsos positivos
+      text{1}{1}
       for n1 = 1:length(text)
         for n2 = 1:length(text{n1})
             for n3=1:length(text{n1}{n2})
                 tmp = isMember(X, text{n1}{n2}{n3}, k);
                 words = words + 1;
-                if (tmp==1 && ~strFinder(text, text{n1}{n2}{n3}))
+                if (tmp==1 && ~strFinder(char(text{n1}{n2}{3}), char(text{n1}{n2})))
                     counter = counter + 1;
                 end
             end
@@ -103,8 +104,6 @@
     end
     delete(h)
     
-    array
-
 % para aparecer no mesmo grafico
  array1=[];
  for i = 1:15
