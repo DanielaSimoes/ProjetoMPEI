@@ -34,7 +34,7 @@ if(member==1)
     fclose(fileID);
     
     fprintf('Outras sugestões: ')
-    %FileReader(livro);
+    FileReader(livro);
 else
     fprintf('O seu livro não existe!');
 end
@@ -91,6 +91,6 @@ SimilarUsers
 
 %Gráfico do erro
 erro= (J-JD);
-erro1 = erro(erro~=0)
+erro1 = erro(erro~=0);
 plot(erro1)
 
