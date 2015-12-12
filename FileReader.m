@@ -62,13 +62,56 @@
     
     %verificar livros similares. Considera-se similar se tiverem pelo menos
     %metade das palavras iguais
-    for n1= 1:length(listing)
-        limiar = cell2mat(counterOfSimilarWords)/length(userBook{n1});
+    %for n1= 1:length(listing)
+        limiar = cell2mat(counterOfSimilarWords)/length(userBook{1});
         if limiar >= 0.5
             fprintf('%s \n',char(listing{n1}));
         end
-    end
+    %end
     
-   
+    h = waitbar(0,'Calculating');
+   %Gráfico de falsos positivos
+    counter=0;
+    words = 0;
+    array = [];
+    for k=1:x
+      % 1 vector para cada k
+      waitbar(k/x,h);
+      BloomFilter = initialize(8000);
+      for n1 = 1:length(text)
+        for n2 = 1:length(text{n1})
+            for n3=1:length(text{n1}{n2})
+                BloomFilter = insert(BloomFilter, text{n1}{n2}{n3}, k);
+            end
+        end
+      end
+      % avaliacao de falsos positivos
+      for n1 = 1:length(text)
+        for n2 = 1:length(text{n1})
+            for n3=1:length(text{n1}{n2})
+                tmp = isMember(X, text{n1}{n2}{n3}, k);
+                words = words + 1;
+                if (tmp==1 && ~strFinder(text, text{n1}{n2}{n3}))
+                    counter = counter + 1;
+                end
+            end
+        end
+      end
+      array = [array, counter/words];
+      counter = 0;
+      words=0;
+    end
+    delete(h)
+    
+    array
+
+% para aparecer no mesmo grafico
+ array1=[];
+ for i = 1:15
+    array1 = [array1, (1 - exp((-1/8)*i))^i];
+ end 
+plot(array1,'g'); hold on;plot(array,'r')
+
+
     
 %end
