@@ -1,42 +1,27 @@
-list = dir('*.txt');
-listing = cell(length(list)-1,1);
-
-index = 1;
-for k=1:length(listing)+1
-    if strcmp(list(k).name,FileName) == 0
-        listing{index} = list(k).name;
-    	index = index + 1;
-    end
-end
-    
 prompt = 'Qual o seu ID de utilizador? ';
 ID = input(prompt);
 
 prompt = 'Qual o título do livro a requisitar? ';
 livro = input(prompt);
-livro = [livro '.txt'];
 
 X = initialize(1e6);
 
-for i=1:length(listing)
-  X = insert(X, listing{i}, 15);
+for i=1:length(books)
+  X = insert(X, books{i}, 15);
 end
 
 member = isMember(X, livro, 15);
 
 if(member==1)
-    fprintf('O seu livro possivelmente existe!\n');
-    
-    fileID = fopen('books.data', 'a');
-    fprintf(fileID,'%d \t %s\n',ID, livro);
-    fclose(fileID);
-    
-    fprintf('Outras sugestões: ')
-    FileReader(livro);
-    
-else
-    fprintf('O seu livro não existe!');
-end
+    fprintf('O seu livro possivelmente existe!');
+
+fileID = fopen('books.data', 'a');
+fprintf(fileID,'%d \t %s\n',ID, livro);
+fclose(fileID);
+
+livro = [livro '.txt'];
+
+FileReader(livro);
  
 C = textscan(fileID, '%d %s', 'Delimiter', '\t');
 

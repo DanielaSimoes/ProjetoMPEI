@@ -17,7 +17,7 @@ ind = find(u(:,1) == users(n));
 end
 
 prompt = 'ID do livro? ';
-s = input(prompt)
+s = input(prompt);
 
 X = initialize(Nu*15);
 
@@ -33,9 +33,9 @@ end
 member = isMember(X, s, 15);
 
 if(member==1)
-    fprintf('O seu livro existe!');
+    fprintf('O seu livro existe!\n');
 else
-    fprintf('O seu livro não existe!');
+    fprintf('O seu livro não existe!\n');
 end
 
 tic
@@ -63,12 +63,7 @@ for n1= 1:Nu,
     for n2= n1+1:Nu,
         if (J(n1,n2) < threshold)
           SimilarUsers(k,:)= [users(n1) users(n2) J(n1,n2)];
-          k= k+1; 
-          %if books{n1}==s
-          %    SimilarBooks(t,:) = books{n1};
-          %    t = t + 1;
-          %end
-          %talvez não faça sentido porque só se obtem os iguais
+          k= k+1;
         end   
     end
 end
@@ -77,5 +72,5 @@ fprintf('Users similares: ');
 SimilarUsers
 
 
-fprintf('Livros similares pelo MinHash: ');
+fprintf('Users similares pelo MinHash: ');
 jaccardDistanceMinHashInt(Nu, 1000, Set, users);
