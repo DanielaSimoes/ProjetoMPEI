@@ -70,7 +70,7 @@
     %end
     
     h = waitbar(0,'Calculating');
-   %Gráfico de falsos positivos
+   %Grï¿½fico de falsos positivos
     counter=0;
     words = 0;
     array = [];
@@ -86,12 +86,13 @@
         end
       end
       % avaliacao de falsos positivos
+      text{1}{1}
       for n1 = 1:length(text)
         for n2 = 1:length(text{n1})
             for n3=1:length(text{n1}{n2})
                 tmp = isMember(X, text{n1}{n2}{n3}, k);
                 words = words + 1;
-                if (tmp==1 && ~strFinder(text, text{n1}{n2}{n3}))
+                if (tmp==1 && ~strFinder(char(text{n1}{n2}{3}), char(text{n1}{n2})))
                     counter = counter + 1;
                 end
             end
