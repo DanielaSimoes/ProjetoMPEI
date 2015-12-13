@@ -1,8 +1,9 @@
-%function [] = FileReader(FileName)
+function [] = FileReader(FileName)
+    %faz a listagem dos ficheiros terminados em .txt
     list = dir('*.txt');
     listing = cell(length(list)-1,1);
-    FileName = 'Livro 2.txt';
-
+    
+    %adiciona-os a um cell array, exceto o livro do utilizador
     index = 1;
     for k=1:length(listing)+1
         if strcmp(list(k).name,FileName) == 0
@@ -13,6 +14,7 @@
 
     text = cell(1,length(listing));
 
+    %lê o livro
     for i=1:length(listing)
         fileID = fopen(listing{i});
         text{i} = textscan(fileID, '%s', 'Delimiter', ' ');
@@ -20,7 +22,7 @@
     end
     
     n = 0;
-    % n - number of items to add
+    % n - number of items to add -- para calcular o k-otimo
     for n1 = 1:length(text)
         for n2 = 1:length(text{n1})
             for n3 = 1:length(text{n1}{n2})
@@ -29,17 +31,20 @@
         end
     end
   
+    %formula k-otimo
     p = 1e-6;
     m = ceil((n * log(p)) / log(1.0 / 2^log(2.0)));
     x = round(log(2.0) * m / n);
     
     X = initialize(1e6);
     
+    %le o livro que o utilizador pretende requisitar
     fileID = fopen(FileName);
     userBook = textscan(fileID, '%s', 'Delimiter', ' ');
     fclose(fileID);
     counterOfSimilarWords = cell(length(userBook),1);
 
+    %conta as palavras similares
     counter = 0;
     index = 1;
     h = waitbar(0,'Calculating');
@@ -62,17 +67,13 @@
     
     %verificar livros similares. Considera-se similar se tiverem pelo menos
     %metade das palavras iguais
-    %for n1= 1:length(listing)
-        limiar = cell2mat(counterOfSimilarWords)/length(userBook{1});
-        if limiar >= 0.5
-            fprintf('%s \n',char(listing{n1}));
-        end
-    %end
+    limiar = cell2mat(counterOfSimilarWords)/length(userBook{1});
+    if limiar >= 0.5
+        fprintf('%s \n',char(listing{n1}));
+    end
     
     h = waitbar(0,'Calculating');
-
    %Grafico de falsos positivos
-
     counter=0;
     words = 0;
     array = [];
@@ -81,23 +82,12 @@
       % 1 vector para cada k
       waitbar(k/x,h);
       BloomFilter = initialize(8000);
-
       for n3=1:1000
                 setStrings{n3} = hashstring(40);
                 BloomFilter = insert(BloomFilter, setStrings{n3}, k);
-
-      for n1 = 1:length(text)
-        for n2 = 1:length(text{n1})
-            for n3=1:length(text{n1}{n2})
-                BloomFilter = insert(BloomFilter, text{n1}{n2}{n3}, k);
-                words = words + 1;
-            end
-        end
-
       end
       
       % avaliacao de falsos positivos
-
        for n3=1:1000
                 str2 = hashstring(40);
                 tmp = isMember(BloomFilter, str2, k);
@@ -109,31 +99,14 @@
             array = [array, counter/words];
             counter = 0;
             words=0;
-
-      for n1 = 1:length(text)
-        for n2 = 1:length(text{n1})
-            for n3=1:length(text{n1}{n2})
-                tmp = isMember(X, text{n1}{n2}{n3}, k);
-                if (tmp==1 && ~strFinder(text{n1}{n2},'LLLLLL'))
-                    counter = counter + 1    ;  
-                end
-            end
-            if counter~=0
-                array = [array counter/words]
-            end
-            counter = 0;
-        end
-      end
     end
     delete(h)
 
-% para aparecer no mesmo grafico
- array1=[];
- for i = 1:x
-    array1 = [array1, (1 - exp((-1/8)*i))^i];
- end 
-plot(array1,'g'); hold on;plot(array,'r')
-shg
+    % para aparecer no mesmo grafico
+     array1=[];
+     for i = 1:x
+        array1 = [array1, (1 - exp((-1/8)*i))^i];
+     end 
+     plot(array1,'g'); hold on;plot(array,'r')
 
-    
-%end
+end
