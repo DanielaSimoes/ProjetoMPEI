@@ -95,19 +95,17 @@
                     counter = counter + 1;
                 end
             end
+            array = [array, counter/words];
+            counter = 0;
+            words=0;
         end
       end
-      array = [array, counter/words];
-      counter = 0;
-      words=0;
     end
     delete(h)
-    
-    array
 
 % para aparecer no mesmo grafico
  array1=[];
- for i = 1:15
+ for i = 1:x
     array1 = [array1, (1 - exp((-1/8)*i))^i];
  end 
 plot(array1,'g'); hold on;plot(array,'r')
