@@ -8,7 +8,3 @@ function X = strFinder(str, cellArray)
  if isempty(result)
      X = 0;
  end
- 
- X
-  
-end
