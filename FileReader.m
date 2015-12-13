@@ -1,7 +1,7 @@
 %function [] = FileReader(FileName)
     list = dir('*.txt');
     listing = cell(length(list)-1,1);
-    FileName = 'Livro 1.txt';
+    FileName = 'Livro 2.txt';
 
     index = 1;
     for k=1:length(listing)+1
@@ -70,37 +70,32 @@
     %end
     
     h = waitbar(0,'Calculating');
-   %Grï¿½fico de falsos positivos
+   %Gráfico de falsos positivos
     counter=0;
     words = 0;
     array = [];
+   
     for k=1:x
       % 1 vector para cada k
       waitbar(k/x,h);
       BloomFilter = initialize(8000);
-      for n1 = 1:length(text)
-        for n2 = 1:length(text{n1})
-            for n3=1:length(text{n1}{n2})
-                BloomFilter = insert(BloomFilter, text{n1}{n2}{n3}, k);
-            end
-        end
+      for n3=1:1000
+                setStrings{n3} = hashstring(40);
+                BloomFilter = insert(BloomFilter, setStrings{n3}, k);
       end
+      
       % avaliacao de falsos positivos
-      text{1}{1}
-      for n1 = 1:length(text)
-        for n2 = 1:length(text{n1})
-            for n3=1:length(text{n1}{n2})
-                tmp = isMember(X, text{n1}{n2}{n3}, k);
+       for n3=1:1000
+                str2 = hashstring(40);
+                tmp = isMember(BloomFilter, str2, k);
                 words = words + 1;
-                if (tmp==1 && ~strFinder(char(text{n1}{n2}{3}), char(text{n1}{n2})))
+                if (tmp==1 && ~strFinder(str2, setStrings{n3}))
                     counter = counter + 1;
                 end
-            end
+        end
             array = [array, counter/words];
             counter = 0;
             words=0;
-        end
-      end
     end
     delete(h)
 
