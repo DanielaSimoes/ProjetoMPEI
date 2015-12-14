@@ -20,13 +20,20 @@ end
 %inicializa o bloom filter
 X = initialize(1e6);
 
-%insere no bloom filter os livros, exceto o do utilizador
+
+%formula k-otimo
+ n = length(list);
+ p = 1e-6;
+ m = ceil((n * log(p)) / log(1.0 / 2^log(2.0)));
+ x = round(log(2.0) * m / n);
+
+%insere no bloom filter os livros
 for i=1:length(list)
-    X = insert(X, list(i).name, 15);
+    X = insert(X, list(i).name, x);
 end
 
 %verifica se o livro existe ou não
-member = isMember(X, livro, 15);
+member = isMember(X, livro, x);
 
 %apresenta ao utilizador r apresenta outras sugestões
 if(member==1)
@@ -85,18 +92,18 @@ k= 1;
 for n1= 1:Nu,
     for n2= n1+1:Nu,
         if (J(n1,n2) < threshold)
-          SimilarUsers(k,:)= [double(users(n1)) double(users(n2)) 3.6];
+          SimilarUsers(k,:)= [double(users(n1)) double(users(n2)) J(n1,n2)];
           k= k+1; 
         end   
     end
 end
 toc
 
-J
 SimilarUsers
 [SimilarUsersMinHash, JD] = jaccardDistanceMinHash(Nu, 3000, Set, users);
-% 
-% %Gráfico do erro entre distancias
-% erro= (J-JD);
-% erro1 = erro(erro~=0);
-% hist(erro1, length(erro1))
+
+subplot(1,2,1)
+%Gráfico do erro entre distancias
+erro= (J-JD);
+erro1 = erro(erro~=0);
+hist(erro1, length(erro1))
