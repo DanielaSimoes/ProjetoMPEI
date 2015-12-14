@@ -1,7 +1,7 @@
-%function [] = FileReader(FileName)
+function [] = FileReader(FileName)
     list = dir('*.txt');
     listing = cell(length(list)-1,1);
-    FileName = 'Livro 2.txt';
+   % FileName = 'Livro 2.txt';
 
     index = 1;
     for k=1:length(listing)+1
@@ -85,55 +85,29 @@
       for n3=1:1000
                 setStrings{n3} = hashstring(40);
                 BloomFilter = insert(BloomFilter, setStrings{n3}, k);
-
-      for n1 = 1:length(text)
-        for n2 = 1:length(text{n1})
-            for n3=1:length(text{n1}{n2})
-                BloomFilter = insert(BloomFilter, text{n1}{n2}{n3}, k);
-                words = words + 1;
-            end
-        end
-
       end
-      
       % avaliacao de falsos positivos
 
-       for n3=1:1000
+      for n4=1:1000
                 str2 = hashstring(40);
                 tmp = isMember(BloomFilter, str2, k);
                 words = words + 1;
-                if (tmp==1 && ~strFinder(str2, setStrings{n3}))
+                if (tmp==1 && ~strFinder(str2, setStrings{n4}))
                     counter = counter + 1;
                 end
-        end
+       end
             array = [array, counter/words];
             counter = 0;
             words=0;
-
-      for n1 = 1:length(text)
-        for n2 = 1:length(text{n1})
-            for n3=1:length(text{n1}{n2})
-                tmp = isMember(X, text{n1}{n2}{n3}, k);
-                if (tmp==1 && ~strFinder(text{n1}{n2},'LLLLLL'))
-                    counter = counter + 1    ;  
-                end
-            end
-            if counter~=0
-                array = [array counter/words]
-            end
-            counter = 0;
-        end
-      end
     end
-    delete(h)
-
+  
 % para aparecer no mesmo grafico
  array1=[];
  for i = 1:x
     array1 = [array1, (1 - exp((-1/8)*i))^i];
  end 
+subplot(1,2,1)
 plot(array1,'g'); hold on;plot(array,'r')
-shg
 
     
-%end
+end

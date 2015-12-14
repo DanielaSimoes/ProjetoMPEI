@@ -89,7 +89,14 @@ toc
 SimilarUsers
 [SimilarUsersMinHash, JD] = jaccardDistanceMinHash(Nu, 3000, Set, users);
 
+J
+
+JD
+
 %Gráfico do erro entre distancias
+subplot(1,2,2)
 erro= (J-JD);
 erro1 = erro(erro~=0);
+
+Var = mean(erro1.^2)- (mean(erro1))^2
 hist(erro1, length(erro1))

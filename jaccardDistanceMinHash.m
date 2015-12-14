@@ -45,7 +45,7 @@ k= 1;
 for n1= 1:Nu,
   for n2= n1+1:Nu,
     if (JD(n1,n2)<0.4)
-      SimilarUsersMinHash(k,:)= [users(n1) users(n2) JD(n1,n2)];
+      SimilarUsersMinHash(k,:)= [double(users(n1)) double(users(n2)) JD(n1,n2)];
       k= k+1;
     end
   end
