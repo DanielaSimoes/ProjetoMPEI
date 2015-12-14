@@ -4,7 +4,7 @@ listing = cell(length(list)-1,1);
 prompt = 'Qual o seu ID de utilizador? ';
 ID = input(prompt);
 
-prompt = 'Qual o t�tulo do livro a requisitar? ';
+prompt = 'Qual o titulo do livro a requisitar? ';
 livro = input(prompt);
 livro = [livro '.txt'];
 
@@ -47,6 +47,8 @@ if(member==1)
     FileReader(livro);
 else
     fprintf('O seu livro nao existe!');
+    fprintf('Livros disponiveis: ');
+    listing
 end
  
 %escreve ID e titulo do livro no ficheiro
@@ -100,21 +102,10 @@ end
 toc
 
 SimilarUsers
-[SimilarUsersMinHash, JD] = jaccardDistanceMinHash(Nu, 3000, Set, users);
+[SimilarUsersMinHash, JD] = jaccardDistanceMinHash(Nu, 1000, Set, users);
 
 subplot(1,2,1)
-%Gr�fico do erro entre distancias
-erro= (J-JD);
-erro1 = erro(erro~=0);
-hist(erro1, length(erro1))
-
-SimilarUsers
-[SimilarUsersMinHash, JD] = jaccardDistanceMinHash(Nu, 3000, Set, users);
-
-
-%Gr�fico do erro entre distancias
-subplot(1,2,2)
-erro= (J-JD);
-erro1 = erro(erro~=0);
-Var = mean(erro1.^2)- (mean(erro1))^2
-hist(erro1, length(erro1))
+%Grafico do erro entre distancias
+% erro= (J-JD);
+% erro1 = erro(erro~=0);
+% hist(erro1, length(erro1))

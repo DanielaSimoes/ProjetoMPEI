@@ -73,4 +73,11 @@ SimilarUsers
 
 
 fprintf('Users similares pelo MinHash: ');
-jaccardDistanceMinHashInt(Nu, 1000, Set, users);
+[SimilarUsersMinHash, JD] = jaccardDistanceMinHashInt(Nu, 1000, Set, users);
+
+%Grafico do erro entre distancias
+subplot(1,2,2)
+erro= (J-JD);
+erro1 = erro(erro~=0);
+Var = mean(erro1.^2)- (mean(erro1))^2
+hist(erro1, length(erro1))
