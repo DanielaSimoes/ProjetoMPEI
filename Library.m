@@ -32,7 +32,7 @@ for i=1:length(list)
     X = insert(X, list(i).name, x);
 end
 
-%verifica se o livro existe ou n�o
+%verifica se o livro existe ou nao
 member = isMember(X, livro, x);
 
 %apresenta ao utilizador r apresenta outras sugest�es
@@ -43,12 +43,14 @@ if(member==1)
     fprintf(fileID,'%d \t %s\n',ID, livro);
     fclose(fileID);
     
-    fprintf('Outras sugestoes: ')
+    fprintf('Outras sugestões: ')
     FileReader(livro);
 else
     fprintf('O seu livro nao existe!');
+
     fprintf('Livros disponiveis: ');
     listing
+
 end
  
 %escreve ID e titulo do livro no ficheiro
@@ -102,10 +104,11 @@ end
 toc
 
 SimilarUsers
-[SimilarUsersMinHash, JD] = jaccardDistanceMinHash(Nu, 1000, Set, users);
+[SimilarUsersMinHash, JD] = jaccardDistanceMinHash(Nu, 3000, Set, users);
 
-subplot(1,2,1)
-%Grafico do erro entre distancias
-% erro= (J-JD);
-% erro1 = erro(erro~=0);
-% hist(erro1, length(erro1))
+%Gráfico do erro entre distancias
+subplot(1,2,2)
+erro= (J-JD);
+erro1 = erro(erro~=0);
+Var = mean(erro1.^2)- (mean(erro1))^2
+hist(erro1, length(erro1))
