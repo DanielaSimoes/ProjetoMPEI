@@ -11,7 +11,7 @@ for i = 1:Nu
     minvector = ones(1,k) * 999999999999;
       for j = 1:length(Set{i})
           str = Set{i}{j};
-          for k = 1:3000
+          for k = 1:1000
             str = [str num2str(k)];
             hash_code = HF.HashCode(str);
             if hash_code < minvector(k)
@@ -32,14 +32,13 @@ for n1 = 1:Nu
     
     count = 0;
     
-    for k = 1:3000
+    for k = 1:1000
       count = count + (mins1(k) == mins2(k));
     end
      JD(n1,n2) = 1-(count / k);
      
   end
 end
-JD
 
 threshold =0.4; % limiar de decisao
 % Array para guardar pares similares (user1, user2, distancia)
