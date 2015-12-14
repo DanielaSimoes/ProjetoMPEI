@@ -4,7 +4,7 @@ listing = cell(length(list)-1,1);
 prompt = 'Qual o seu ID de utilizador? ';
 ID = input(prompt);
 
-prompt = 'Qual o título do livro a requisitar? ';
+prompt = 'Qual o tï¿½tulo do livro a requisitar? ';
 livro = input(prompt);
 livro = [livro '.txt'];
 
@@ -20,13 +20,20 @@ end
 %inicializa o bloom filter
 X = initialize(1e6);
 
-%insere no bloom filter os livros, exceto o do utilizador
+
+%formula k-otimo
+ n = length(list);
+ p = 1e-6;
+ m = ceil((n * log(p)) / log(1.0 / 2^log(2.0)));
+ x = round(log(2.0) * m / n);
+
+%insere no bloom filter os livros
 for i=1:length(list)
-    X = insert(X, list(i).name, 15);
+    X = insert(X, list(i).name, x);
 end
 
 %verifica se o livro existe ou nï¿½o
-member = isMember(X, livro, 15);
+member = isMember(X, livro, x);
 
 %apresenta ao utilizador r apresenta outras sugestï¿½es
 if(member==1)
@@ -36,10 +43,16 @@ if(member==1)
     fprintf(fileID,'%d \t %s\n',ID, livro);
     fclose(fileID);
     
-    fprintf('Outras sugestões: ')
+    fprintf('Outras sugestÃµes: ')
     FileReader(livro);
 else
-    fprintf('O seu livro não existe!');
+    fprintf('O seu livro nÃ£o existe!');
+
+    fprintf('Outras sugestoes: ')
+    FileReader(livro);
+else
+    fprintf('O seu livro nao existe!');
+
 end
  
 %escreve ID e titulo do livro no ficheiro
@@ -92,15 +105,22 @@ for n1= 1:Nu,
 end
 toc
 
-
 SimilarUsers
 [SimilarUsersMinHash, JD] = jaccardDistanceMinHash(Nu, 1000, Set, users);
 
+subplot(1,2,1)
+%GrÃ¡fico do erro entre distancias
+erro= (J-JD);
+erro1 = erro(erro~=0);
+hist(erro1, length(erro1))
 
-%Grï¿½fico do erro entre distancias
+
+SimilarUsers
+[SimilarUsersMinHash, JD] = jaccardDistanceMinHash(Nu, 3000, Set, users);
+
+%GrÃ¡fico do erro entre distancias
 subplot(1,2,2)
 erro= (J-JD);
 erro1 = erro(erro~=0);
 Var = mean(erro1.^2)- (mean(erro1))^2
 hist(erro1, length(erro1))
-
