@@ -5,6 +5,7 @@ TotalMins = zeros(Nu,k);
 
 HF = HashFunctionR(2^32);
 
+%gera os minimos atraves da hashfunction e guarda o menor dos minimos
 for i = 1:Nu
     waitbar(i/Nu,h);
     minvector = ones(1,k) * 999999999999;
@@ -22,6 +23,7 @@ for i = 1:Nu
 end
 delete(h)
 
+%conta os minimos iguais e divide por k
 JD=zeros(Nu);
 for n1 = 1:Nu
   mins1 = TotalMins(n1,:);
@@ -37,6 +39,7 @@ for n1 = 1:Nu
      
   end
 end
+JD
 
 threshold =0.4; % limiar de decisao
 % Array para guardar pares similares (user1, user2, distancia)
