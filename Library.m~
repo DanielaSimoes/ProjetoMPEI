@@ -103,7 +103,7 @@ for n1= 1:Nu,
 end
 toc
 
-SimilarUsers
+%SimilarUsers
 [SimilarUsersMinHash, JD] = jaccardDistanceMinHash(Nu, 1000, Set, users);
 
 %Gráfico do erro entre distancias
