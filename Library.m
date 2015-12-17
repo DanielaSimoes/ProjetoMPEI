@@ -1,58 +1,58 @@
 function [SimilarUsers] = Library()
-%     list = dir('*.txt');
-%     listing = cell(length(list)-1,1);
-% 
-%     prompt = 'Qual o seu ID de utilizador? ';
-%     ID = input(prompt);
-% 
-%     prompt = 'Qual o titulo do livro a requisitar? ';
-%     livro = input(prompt);
-%     livro = [livro '.txt'];
-% 
-%     %adiciona os livros ao cell array
-%     index = 1;
-%     for k=1:length(listing)+1
-%         if strcmp(list(k).name,livro) == 0
-%             listing{index} = list(k).name;
-%             index = index + 1;
-%         end
-%     end
-% 
-%     %inicializa o bloom filter
-%     X = initialize(1e6);
-% 
-% 
-%     %formula k-otimo
-%      n = length(list);
-%      p = 1e-6;
-%      m = ceil((n * log(p)) / log(1.0 / 2^log(2.0)));
-%      x = round(log(2.0) * m / n);
-% 
-%     %insere no bloom filter os livros
-%     for i=1:length(list)
-%         X = insert(X, list(i).name, x);
-%     end
-% 
-%     %verifica se o livro existe ou nao
-%     member = isMember(X, livro, x);
-% 
-%     %apresenta ao utilizador r apresenta outras sugest�es
-%     if(member==1)
-%         fprintf('O seu livro possivelmente existe!\n');
-% 
-%         fileID = fopen('books.data', 'a');
-%         fprintf(fileID,'%d \t %s\n',ID, livro);
-%         fclose(fileID);
-% 
-%         fprintf('Outras sugestões: ')
-%         FileReader(livro);
-%     else
-%         fprintf('O seu livro nao existe!');
-% 
-%         fprintf('Livros disponiveis: ');
-%         listing
-% 
-%     end
+    list = dir('*.txt');
+    listing = cell(length(list)-1,1);
+
+    prompt = 'Qual o seu ID de utilizador? ';
+    ID = input(prompt);
+
+    prompt = 'Qual o titulo do livro a requisitar? ';
+    livro = input(prompt);
+    livro = [livro '.txt'];
+
+    %adiciona os livros ao cell array
+    index = 1;
+    for k=1:length(listing)+1
+        if strcmp(list(k).name,livro) == 0
+            listing{index} = list(k).name;
+            index = index + 1;
+        end
+    end
+
+    %inicializa o bloom filter
+    X = initialize(1e6);
+
+
+    %formula k-otimo
+     n = length(list);
+     p = 1e-6;
+     m = ceil((n * log(p)) / log(1.0 / 2^log(2.0)));
+     x = round(log(2.0) * m / n);
+
+    %insere no bloom filter os livros
+    for i=1:length(list)
+        X = insert(X, list(i).name, x);
+    end
+
+    %verifica se o livro existe ou nao
+    member = isMember(X, livro, x);
+
+    %apresenta ao utilizador r apresenta outras sugest�es
+    if(member==1)
+        fprintf('O seu livro possivelmente existe!\n');
+
+        fileID = fopen('books.data', 'a');
+        fprintf(fileID,'%d \t %s\n',ID, livro);
+        fclose(fileID);
+
+        fprintf('Outras sugestões: ')
+        FileReader(livro);
+    else
+        fprintf('O seu livro nao existe!');
+
+        fprintf('Livros disponiveis: ');
+        listing
+
+    end
 
     %escreve ID e titulo do livro no ficheiro
     fileID = fopen('books.data');
@@ -105,12 +105,12 @@ function [SimilarUsers] = Library()
     toc
     J
     SimilarUsers
-%     [SimilarUsersMinHash, JD] = jaccardDistanceMinHash(Nu, 1000, Set, users);
+    [SimilarUsersMinHash, JD] = jaccardDistanceMinHash(Nu, 1000, Set, users);
 
-    %Gráfico do erro entre distancias
-%     subplot(1,2,2)
-%     erro= (J-JD);
-%     erro1 = erro(erro~=0);
-%     Var = mean(erro1.^2)- (mean(erro1))^2
+%     Gráfico do erro entre distancias
+    subplot(1,2,2)
+    erro= (J-JD);
+    erro1 = erro(erro~=0);
+    Var = mean(erro1.^2)- (mean(erro1))^2
     %hist(erro1, length(erro1))
 end

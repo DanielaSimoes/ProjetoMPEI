@@ -73,9 +73,8 @@ function varargout = gui_OutputFcn(hObject, eventdata, handles)
 varargout{1} = handles.output;
 array = Library();
 str = 'Similar Users:'
-t = size(array)
 
-for i=1:t(1)
+for i=1:length(array)-
     str = strcat(str, sprintf('\n%15.4f %15.4f %15.4f', array(i,1), array(i,2), array(i,3)))
 end
 
